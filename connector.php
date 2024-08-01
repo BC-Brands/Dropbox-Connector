@@ -47,10 +47,8 @@ class DropboxConnector{
         // Send GET Request
         $response = $this->getRequest($this->namespaceURL, array(), array());
 
-        echo "Hello";
-
         // Return response
-        //return $response;
+        return $response;
     }
 
     // Scripts to list files in a dropbox folder
