@@ -21,6 +21,8 @@ class DropboxConnector{
         $headers = $args;
         $headers["Authorization"] = "Bearer " . $this->accesstoken;
 
+        var_dump($headers);
+
         //Send HTTP Curl Request
         $c = curl_init($path);
 
