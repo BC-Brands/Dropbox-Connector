@@ -21,8 +21,6 @@ class DropboxConnector{
         $headers = $args;
         array_push($headers, "Authorization: Bearer " . $this->accesstoken);
 
-        var_dump($headers);
-
         //Send HTTP Curl Request
         $c = curl_init($path);
 
@@ -52,13 +50,13 @@ class DropboxConnector{
 
         // Request Data
         $data = array(
-            "include_deleted": false,
-            "include_has_explicit_shared_members": false,
-            "include_media_info": false,
-            "include_mounted_folders": true,
-            "include_non_downloadable_files": true,
-            "path": $path,
-            "recursive": false
+            "include_deleted" => false,
+            "include_has_explicit_shared_members" => false,
+            "include_media_info" => false,
+            "include_mounted_folders" => true,
+            "include_non_downloadable_files" => true,
+            "path" => $path,
+            "recursive" => false
         );
 
         $jsonObj = json_encode($data);
