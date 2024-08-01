@@ -99,7 +99,8 @@ class DropboxConnector{
 
         // Set headers and bearer token
         $headers = array(
-            "Dropbox-API-Arg: " . $jsonObj
+            "Dropbox-API-Arg: " . $jsonObj,
+            "Content-Type: application/octet-stream"
         );
 
         // Send GET Request
