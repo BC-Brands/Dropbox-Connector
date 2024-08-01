@@ -14,7 +14,7 @@ class DropboxConnector{
     }
 
     // Scripts to send a HTTP request.
-    function getRequest($path, $args, $data){
+    function sendRequest($type, $path, $args, $data){
         // Encode the request in JSON
         $jsonObj = json_encode($args);
 
@@ -26,7 +26,7 @@ class DropboxConnector{
         $c = curl_init($path);
 
         curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($c, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($c, CURLOPT_CUSTOMREQUEST, $type);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 
         // Request Body
@@ -39,13 +39,23 @@ class DropboxConnector{
         curl_close($c);
 
         // Return response
-        return $response;   
+        return $response; 
+    }
+
+    // Scripts to send a HTTP GET request
+    function getRequest($path, $args, $data){
+        return $this->sendRequest('GET', $path, $args, $data);  
+    }
+
+    // Scripts to send a HTTP POST request
+    function postRequest($path, $args, $data){
+        return $this->sendRequest('POST', $path, $args, $data);
     }
 
     // List namespaces
     function listNamespace(){
         // Send GET Request
-        $response = $this->getRequest($this->namespaceURL, array(), array());
+        $response = $this->postRequest($this->namespaceURL, array(), array());
 
         // Return response
         return $response;
@@ -72,7 +82,7 @@ class DropboxConnector{
         $jsonObj = json_encode($data);
 
         // Send GET Request
-        $response = $this->getRequest($this->listURL, $headers, $jsonObj);
+        $response = $this->postRequest($this->listURL, $headers, $jsonObj);
 
         // Return response
         return $response;
