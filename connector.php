@@ -19,7 +19,7 @@ class DropboxConnector{
 
         // Set headers and bearer token
         $headers = $args;
-        $headers["Authorization"] = "Bearer " . $this->accesstoken;
+        array_push($headers, "Authorization: Bearer " . $this->accesstoken);
 
         var_dump($headers);
 
@@ -58,8 +58,9 @@ class DropboxConnector{
         $jsonObj = json_encode($dbxArgs);
 
         // Set headers and bearer token
-        $headers = array();
-        $headers["Dropbox-API-Arg"] = $jsonobj;
+        $headers = array(
+            "Dropbox-API-Arg: " . $jsonObj
+        );
 
         // Send GET Request
         $response = $this->getRequest($this->uploadURL, $headers, array());
