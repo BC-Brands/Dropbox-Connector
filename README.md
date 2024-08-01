@@ -16,6 +16,6 @@ Set the permission type to be 'Scoped' and allow access to all Dropbox files.
 
 Under OAuth2, create an access token and save this for later use.
 
-Under the Permissions tab, make sure `files.content.read` is selected.
+Under the Permissions tab, make sure `files.content.read` and `team_data.member` are selected.
 
 ## Example code

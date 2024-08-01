@@ -10,6 +10,7 @@ class DropboxConnector{
         $this->accesstoken = $accesstoken;
         $this->uploadURL = "https://content.dropboxapi.com/2/files/download";
         $this->listURL = "https://api.dropboxapi.com/2/files/list_folder";
+        $this->namespaceURL = "https://api.dropboxapi.com/2/team/namespaces/list";
     }
 
     // Scripts to send a HTTP request.
@@ -39,6 +40,15 @@ class DropboxConnector{
 
         // Return response
         return $response;   
+    }
+
+    // List namespaces
+    function listNamespace(){
+        // Send GET Request
+        $response = $this->getRequest($this->namespaceURL, array(), array());
+
+        // Return response
+        return $response;
     }
 
     // Scripts to list files in a dropbox folder
