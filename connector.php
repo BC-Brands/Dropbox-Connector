@@ -57,7 +57,7 @@ class DropboxConnector{
             "include_media_info": false,
             "include_mounted_folders": true,
             "include_non_downloadable_files": true,
-            "path": "/",
+            "path": $path,
             "recursive": false
         );
 
