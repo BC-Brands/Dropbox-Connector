@@ -19,3 +19,27 @@ Under OAuth2, create an access token and save this for later use.
 Under the Permissions tab, make sure `files.content.read`is selected.
 
 ## Example code
+### List All Files in a Directory
+```
+<?php
+require_once "connector.php";
+
+$auth_token = ""; // Insert your AUTH Token here.
+
+$dc = new DropboxConnector($auth_token);
+echo $dc->listFiles("") // Replace "" with your directory, or leave blank string for the root directory.
+
+?>
+```
+
+### Get and return a file
+```
+<?php
+require_once "connector.php";
+
+$auth_token = "";
+
+$dc = new DropboxConnector($auth_token);
+echo $dc->getFile("path/to/file");
+?>
+```
