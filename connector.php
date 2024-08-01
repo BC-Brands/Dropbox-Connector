@@ -9,29 +9,61 @@ class DropboxConnector{
     function __construct($accesstoken) {
         $this->accesstoken = $accesstoken;
         $this->uploadURL = "https://content.dropboxapi.com/2/files/download";
+        $this->listURL = "https://api.dropboxapi.com/2/files/list_folder";
     }
 
-    function getFile($path){
-        $args = array();
-        $args["path"] = $path;
-
+    // Scripts to send a HTTP request.
+    function getRequest($path, $args, $data){
+        // Encode the request in JSON
         $jsonObj = json_encode($args);
 
-        $headers = array(
-            "Authorization: Bearer " . $this->accesstoken,
-            "Dropbox-API-Arg: " . $jsonObj
-        );
+        // Set headers and bearer token
+        $headers = $args;
+        $headers["Authorization"] = "Bearer " . $this->accesstoken;
 
         //Send HTTP Curl Request
-        $c = curl_init($this->uploadURL);
+        $c = curl_init($path);
 
         curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($c, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 
+        // Request Body
+        if (count($data) != 0) {
+            $jsonData = json_encode($data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
+        }
+
         $response = curl_exec($c);
         curl_close($c);
 
+        // Return response
+        return $response;   
+    }
+
+    // Scripts to list files in a dropbox folder
+    function listFiles($path){
+        $args = array();
+    }
+
+    // Scripts to get a file from dropbox
+    function getFile($path){
+        // Set the file to get
+        $dbxArgs = array();
+        $dbxArgs["path"] = $path;
+
+        // Encode the request in JSON
+        $jsonObj = json_encode($dbxArgs);
+
+        // Set headers and bearer token
+        $headers = array(
+            "Dropbox-API-Arg: " . $jsonObj
+        );
+
+        // Send GET Request
+        $response = $this->getRequest($this->uploadURL, $headers, array());
+
+        // Return response
         return $response;
     }
 }
