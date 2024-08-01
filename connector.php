@@ -47,7 +47,7 @@ class DropboxConnector{
         // Send GET Request
         $response = $this->getRequest($this->namespaceURL, array(), array());
 
-        echo "Hello"
+        echo "Hello";
 
         // Return response
         //return $response;
