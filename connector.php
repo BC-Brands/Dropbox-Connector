@@ -58,9 +58,8 @@ class DropboxConnector{
         $jsonObj = json_encode($dbxArgs);
 
         // Set headers and bearer token
-        $headers = array(
-            "Dropbox-API-Arg: " . $jsonObj
-        );
+        $headers = array();
+        $headers["Dropbox-API-Arg"] = $jsonobj;
 
         // Send GET Request
         $response = $this->getRequest($this->uploadURL, $headers, array());
