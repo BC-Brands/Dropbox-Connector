@@ -29,7 +29,7 @@ class DropboxConnector{
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 
         // Request Body
-        if (count($data) != 0) {
+        if ($data == null) {
             $jsonData = json_encode($data);
             curl_setopt($c, CURLOPT_POSTFIELDS, $jsonData);
         }
