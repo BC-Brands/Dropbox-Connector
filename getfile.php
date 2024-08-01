@@ -12,9 +12,14 @@ class DropboxConnector{
     }
 
     function getFile($path){
+        $args = array();
+        $args["path"] = $path;
+
+        $jsonObj = json_encode($args);
+
         $headers = array(
             "Authorization: Bearer " . $this->accesstoken,
-            "Dropbox-API-Arg: {'path':'" . $path . "'}"
+            "Dropbox-API-Arg: " . $jsonObj
         );
 
         //Send HTTP Curl Request
