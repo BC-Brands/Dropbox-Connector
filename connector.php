@@ -45,7 +45,29 @@ class DropboxConnector{
 
     // Scripts to list files in a dropbox folder
     function listFiles($path){
-        $args = array();
+        // Request Headers
+        $headers = array(
+            "Content-Type: application/json"
+        );
+
+        // Request Data
+        $data = array(
+            "include_deleted": false,
+            "include_has_explicit_shared_members": false,
+            "include_media_info": false,
+            "include_mounted_folders": true,
+            "include_non_downloadable_files": true,
+            "path": "/",
+            "recursive": false
+        );
+
+        $jsonObj = json_encode($data);
+
+        // Send GET Request
+        $response = $this->getRequest($this->listURL, $headers, $jsonObj);
+
+        // Return response
+        return $response;
     }
 
     // Scripts to get a file from dropbox
