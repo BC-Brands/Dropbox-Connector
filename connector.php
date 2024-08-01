@@ -52,10 +52,10 @@ class DropboxConnector{
         return $this->sendRequest('POST', $path, $args, $data);
     }
 
-    // List namespaces
-    function listNamespace(){
+    // List All Folders
+    function listAllFolders(){
         // Send GET Request
-        $response = $this->postRequest($this->namespaceURL, array(), array());
+        $response = $this->listFiles("");
 
         // Return response
         return $response;
