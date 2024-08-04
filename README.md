@@ -2,7 +2,7 @@
 A collection of simple scripts to work with Dropbox files.
 
 ## About
-Version 2, 01/08/2024
+Version 2, 04/08/2024
 
 Copyright (C) 2024 BC Brands. All rights reserved.
 
@@ -10,7 +10,7 @@ Registered with the BC Brands Software Centre, No #00051.
 https://bcwd.site/software
 
 ### Changelog
-Version 2     Now supports OAuth2 connectivity to Dropbox.
+Version 2.0     Now supports OAuth2 connectivity to Dropbox.
 **Please note Version 2 is not backwards compatible with version 1.**
 
 ## Installation
