@@ -4,6 +4,9 @@ require_once "http.php";
 require_once "env.php";
 
 function generateToken(){
+    global $APP_KEY;
+    global $APP_SECRET;
+    
     $file = fopen("token.env", "r") or die("Unable to open file!");
     $refresh_token = fread($file,filesize("token.env"));
     fclose($file);
@@ -12,7 +15,9 @@ function generateToken(){
 
     $response = sendHTTPRequest('POST', 'https://api.dropboxapi.com/oauth2/token', array(), $data, 'TXT');
 
-    $auth_token = $response["access_token"];
+    $responseJSON = json_decode($response);
+
+    $auth_token = $responseJSON->access_token;
 
     return $auth_token;
 }
