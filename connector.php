@@ -1,13 +1,16 @@
 <?php
 
+require_once "http.php";
+require_once "token.php";
+
 class DropboxConnector{
     // Class variables
     private $accesstoken;
     private $uploadURL;
 
     // Construct the class
-    function __construct($accesstoken) {
-        $this->accesstoken = $accesstoken;
+    function __construct() {
+        $this->accesstoken = generateToken();
         $this->uploadURL = "https://content.dropboxapi.com/2/files/download";
         $this->listURL = "https://api.dropboxapi.com/2/files/list_folder";
         $this->namespaceURL = "https://api.dropboxapi.com/2/team/namespaces/list";
@@ -15,28 +18,11 @@ class DropboxConnector{
 
     // Scripts to send a HTTP request.
     function sendRequest($type, $path, $args, $data){
-        // Encode the request in JSON
-        $jsonObj = json_encode($args);
-
         // Set headers and bearer token
         $headers = $args;
         array_push($headers, "Authorization: Bearer " . $this->accesstoken);
 
-        //Send HTTP Curl Request
-        $c = curl_init($path);
-
-        curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($c, CURLOPT_CUSTOMREQUEST, $type);
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-
-        // Request Body
-        if ($data == null) {
-            $jsonData = json_encode($data);
-            curl_setopt($c, CURLOPT_POSTFIELDS, $jsonData);
-        }
-
-        $response = curl_exec($c);
-        curl_close($c);
+        $response = sendHTTPRequest($type, $path, $headers, $data);
 
         // Return response
         return $response; 
