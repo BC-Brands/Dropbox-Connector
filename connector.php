@@ -22,7 +22,7 @@ class DropboxConnector{
         $headers = $args;
         array_push($headers, "Authorization: Bearer " . $this->accesstoken);
 
-        $response = sendHTTPRequest($type, $path, $headers, $data);
+        $response = sendHTTPRequest($type, $path, $headers, $data, 'JSON');
 
         // Return response
         return $response; 

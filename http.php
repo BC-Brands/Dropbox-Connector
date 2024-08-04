@@ -1,7 +1,7 @@
 <?php
 // HTTP Request
 
-function sendHTTPRequest($type, $path, $headers, $data){
+function sendHTTPRequest($type, $path, $headers, $data, $datatype){
     //Send HTTP Curl Request
     $c = curl_init($path);
 
@@ -10,9 +10,13 @@ function sendHTTPRequest($type, $path, $headers, $data){
     curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 
     // Request Body
-    if ($data == null) {
-        $jsonData = json_encode($data);
-        curl_setopt($c, CURLOPT_POSTFIELDS, $jsonData);
+    if ($data != null) {
+        if ($datatype == 'JSON'){
+            $jsonData = json_encode($data);
+            curl_setopt($c, CURLOPT_POSTFIELDS, $jsonData);
+        } else {
+            curl_setopt($c, CURLOPT_POSTFIELDS, $data);
+        }
     }
 
     $response = curl_exec($c);

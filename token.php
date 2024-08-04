@@ -8,14 +8,9 @@ function generateToken(){
     $refresh_token = fread($file,filesize("token.env"));
     fclose($file);
 
-    $data = array(
-        "refresh_token" => $refresh_token,
-        "grant_type" => "refresh_token",
-        "client_id" => $APP_KEY,
-        "client_secret" => $APP_SECRET
-    );
+    $data = "refresh_token=". $refresh_token ."&grant_type=refresh_token&client_id=". $APP_KEY ."&client_secret=" . $APP_SECRET;
 
-    $response = sendHTTPRequest('POST', 'https://api.dropboxapi.com/oauth2/token', '', $data);
+    $response = sendHTTPRequest('POST', 'https://api.dropboxapi.com/oauth2/token', array(), $data, 'TXT');
 
     $auth_token = $response["access_token"];
 
